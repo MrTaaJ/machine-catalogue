@@ -4,13 +4,6 @@ import { NavContext } from "../../context/NavLink";
 
 export default function SideBar() {
   const { navLinkData } = useContext(NavContext);
-  //   const NavLinkData = [
-  //     { link: '/', text: 'Dashboard' },
-  //     { link: '/today', text: 'Today' },
-  //     { link: '/schedule', text: 'Scheduled' },
-  //     { link: '/assigned', text: 'Assigned to VA' },
-  //     { link: '/alltasks', text: 'Tasks' },
-  //   ]
   return (
     <div className="h-full">
       <div className="flex flex-col gap-[20px]">

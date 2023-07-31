@@ -1,7 +1,6 @@
 import Layout from "../../layout/Layout";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState, useContext, useCallback } from "react";
-import { CatContext } from "../../context/Categories";
 import {
   CatValueContext,
   CategoryValueSchema,
@@ -25,18 +24,6 @@ type CategoryItemSchema = {
   loadItemValues: FieldValue[] | null;
 };
 
-type TextInputSchema = {
-  textValue: string;
-} & FieldDataSchema;
-
-type NumberInputSchema = {
-  numberValue: number;
-} & FieldDataSchema;
-
-type BooleanInputSchema = {
-  checkValue: boolean;
-} & FieldDataSchema;
-
 export default function CategoryPage() {
   const [id, setId] = useState("");
   const location = useLocation();
@@ -45,7 +32,6 @@ export default function CategoryPage() {
     id: "",
     fields: [],
   });
-  const { categories } = useContext(CatContext);
   const { categoryValues, setCategoryValues } = useContext(CatValueContext);
   const [itemContent, setItemContent] = useState<CategoryValueSchema>({
     id: "",

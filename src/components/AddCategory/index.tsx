@@ -1,11 +1,4 @@
-import {
-  SetStateAction,
-  useState,
-  Dispatch,
-  useEffect,
-  useCallback,
-  useContext,
-} from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { NavContext } from "../../context/NavLink";
 import { CatContext } from "../../context/Categories";
 import ButtonList from "../ButtonList";
