@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Layout from "../../layout/Layout";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState, useContext, useCallback } from "react";

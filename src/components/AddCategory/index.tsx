@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useCallback, useContext } from "react";
 import { NavContext } from "../../context/NavLink";
 import { CatContext } from "../../context/Categories";

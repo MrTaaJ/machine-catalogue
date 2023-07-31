@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Layout from "../../layout/Layout";
 import { useEffect, useState, useContext } from "react";
 import AddCategory from "../../components/AddCategory";

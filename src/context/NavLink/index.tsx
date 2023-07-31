@@ -39,7 +39,7 @@ const NavProvider = ({ children }: LayoutSchema) => {
   useEffect(() => {
     !firstLoad &&
       localStorage.setItem("categoryHandlerNav", JSON.stringify(navLinkData));
-  }, [navLinkData]);
+  }, [navLinkData, firstLoad]);
 
   return (
     <NavContext.Provider

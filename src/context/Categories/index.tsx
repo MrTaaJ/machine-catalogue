@@ -47,7 +47,7 @@ const CatProvider = ({ children }: LayoutSchema) => {
   useEffect(() => {
     !firstLoad &&
       localStorage.setItem("categoryHandler", JSON.stringify(categories));
-  }, [categories]);
+  }, [categories, firstLoad]);
 
   return (
     <CatContext.Provider
