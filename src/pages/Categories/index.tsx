@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Layout from "../../layout/Layout";
 import { useEffect, useState, useContext } from "react";
 import AddCategory from "../../components/AddCategory";
@@ -38,7 +37,7 @@ export default function Categories() {
         setCategories(firstContent);
       }
     }
-  }, [firstContent]);
+  }, [firstContent, firstLoad, setCategories]);
 
   useEffect(() => {
     if (firstLoad === false) {
@@ -57,7 +56,7 @@ export default function Categories() {
         setAddCat([]);
       }
     }
-  }, [categories]);
+  }, [categories, firstLoad]);
 
   return (
     <Layout>

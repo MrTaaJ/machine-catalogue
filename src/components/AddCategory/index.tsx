@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useCallback, useContext } from "react";
 import { NavContext } from "../../context/NavLink";
 import { CatContext } from "../../context/Categories";
@@ -169,11 +168,7 @@ export default function Categories({
     }
   }
 
-  useEffect(() => {
-    addTodo(field);
-  }, [field]);
-
-  useEffect(() => {
+  const categoryFirstLoad = useCallback(() => {
     const id = uuidv4();
 
     if (loadCategory) {
@@ -211,7 +206,15 @@ export default function Categories({
 
       setFields([{ id: id, type: "text", field: "" }]);
     }
-  }, []);
+  }, [loadCategory]);
+
+  useEffect(() => {
+    addTodo(field);
+  }, [addTodo, field]);
+
+  useEffect(() => {
+    categoryFirstLoad();
+  }, [categoryFirstLoad]);
 
   return (
     <div className="h-fit w-[350px] p-4 flex flex-col gap-3 border border-[#424296] rounded">

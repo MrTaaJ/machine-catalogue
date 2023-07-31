@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Layout from "../../layout/Layout";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState, useContext, useCallback } from "react";
@@ -49,60 +48,66 @@ export default function CategoryPage() {
     setItemContent(data);
   }
 
-  function addContentItem(data: CategoryValueSchema) {
-    console.log("This is coming data", data);
-    console.log("This is where is will be saved", itemContents);
+  const addContentItem = useCallback(
+    (data: CategoryValueSchema) => {
+      console.log("This is coming data", data);
+      console.log("This is where is will be saved", itemContents);
 
-    if (currentCategory.id === id) {
-      if (itemContents.length < 1) {
-        setItemContents((prev) => [...prev, data]);
-      } else {
-        const isFound = itemContents?.find(
-          (itemContent: any) => itemContent.id === data.id
-        );
-
-        if (isFound) {
-          setItemContents((prev) =>
-            prev.map((itemValue) => {
-              if (itemValue.id === data.id) {
-                return data;
-              } else {
-                return itemValue;
-              }
-            })
-          );
-        } else {
+      if (currentCategory.id === id) {
+        if (itemContents.length < 1) {
           setItemContents((prev) => [...prev, data]);
+        } else {
+          const isFound = itemContents?.find(
+            (itemContent: any) => itemContent.id === data.id
+          );
+
+          if (isFound) {
+            setItemContents((prev) =>
+              prev.map((itemValue) => {
+                if (itemValue.id === data.id) {
+                  return data;
+                } else {
+                  return itemValue;
+                }
+              })
+            );
+          } else {
+            setItemContents((prev) => [...prev, data]);
+          }
         }
       }
-    }
-  }
+    },
+    [currentCategory.id, id, itemContents]
+  );
 
-  function removeItems(e: any) {
-    if (e.target.name === "deleteItem") {
-      const idItem = e.target.id;
+  const removeItems = useCallback(
+    (e: any) => {
+      if (e.target.name === "deleteItem") {
+        const idItem = e.target.id;
 
-      setCategoryValues((prev) =>
-        prev.map((contentsData) => {
-          if (contentsData.id === id) {
-            const updateContent = contentsData.contents.filter(
-              (content) => content.id !== idItem
-            );
+        setCategoryValues((prev) =>
+          prev.map((contentsData) => {
+            if (contentsData.id === id) {
+              const updateContent = contentsData.contents.filter(
+                (content) => content.id !== idItem
+              );
 
-            const updateContentItem = {
-              id: contentsData.id,
-              contents: updateContent,
-            };
-            return updateContentItem;
-          } else {
-            return contentsData;
-          }
-        })
-      );
+              const updateContentItem = {
+                id: contentsData.id,
+                contents: updateContent,
+              };
+              return updateContentItem;
+            } else {
+              return contentsData;
+            }
+          })
+        );
 
-      setAddItem((prev) => prev.filter((item) => item.id !== idItem));
-    }
-  }
+        setAddItem((prev) => prev.filter((item) => item.id !== idItem));
+      }
+    },
+    [id, setCategoryValues]
+  );
 
   function add() {
     const id = uuidv4();
@@ -183,13 +188,20 @@ export default function CategoryPage() {
         setCategoryValues((prev) => [...prev, newLoad]);
       }
     }
-  }, [currentCategory]);
+  }, [
+    categoryValues,
+    currentCategory,
+    firstLoad,
+    id,
+    removeItems,
+    setCategoryValues,
+  ]);
 
   useEffect(() => {
     if (!firstLoad) {
       addContentItem(itemContent);
     }
-  }, [itemContent]);
+  }, [addContentItem, firstLoad, itemContent]);
 
   useEffect(() => {
     if (!firstLoad) {
@@ -207,7 +219,7 @@ export default function CategoryPage() {
         })
       );
     }
-  }, [itemContents]);
+  }, [firstLoad, id, itemContents, setCategoryValues]);
 
   useEffect(() => {
     setFirstLoad(false);
@@ -297,7 +309,7 @@ function CategoryItem({
 
   useEffect(() => {
     addTitles(title);
-  }, [title]);
+  }, [addTitles, title]);
 
   useEffect(() => {
     const values: any = [];
@@ -338,7 +350,7 @@ function CategoryItem({
     }
 
     setTitles(values);
-  }, []);
+  }, [fields, loadItemValues]);
 
   useEffect(() => {
     if (loadItemValues) {
@@ -402,7 +414,7 @@ function CategoryItem({
 
       setValueMap(valueMap);
     }
-  }, [fields]);
+  }, [fields, loadItemValues]);
   return (
     <div className="h-fit w-[300px] p-4 flex flex-col gap-3 border border-[#424296] rounded">
       <h2 className="font-bold text-xl">Title</h2>
